@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#0a0b10" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="CueFlow" />
+  <title>CueFlow · 手机提词器</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" sizes="180x180" href="icon-180.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="editor" class="screen editor-screen">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">MOBILE TELEPROMPTER</p>
+        <h1>CueFlow</h1>
+      </div>
+      <button id="installBtn" class="ghost hidden">安装 App</button>
+    </header>
+
+    <section class="card intro-card">
+      <span class="status-dot"></span>
+      <p>英文口播提词器。台词自动保存在本机，不上传。</p>
+    </section>
+
+    <section class="script-section">
+      <div class="section-heading">
+        <label for="script">台词</label>
+        <span id="wordCount">0 words</span>
+      </div>
+      <textarea id="script" spellcheck="true" placeholder="Paste your English script here…">Hey everyone, welcome back to my channel.\n\nToday I want to show you a simple way to make your videos feel more natural — even if English isn't your first language.\n\nTake a breath, look into the lens, and speak one idea at a time. You've got this.</textarea>
+    </section>
+
+    <section class="settings-grid">
+      <label class="setting card">
+        <span>字号 <output id="fontValue">52</output></span>
+        <input id="fontSize" type="range" min="32" max="88" value="52" />
+      </label>
+      <label class="setting card">
+        <span>速度 <output id="speedValue">1.0×</output></span>
+        <input id="speed" type="range" min="10" max="90" value="38" />
+      </label>
+    </section>
+
+    <div class="option-row">
+      <button id="mirrorBtn" class="toggle" aria-pressed="false"><span>↔</span> 镜像文字</button>
+      <button id="cameraBtn" class="toggle active" aria-pressed="true"><span>●</span> 同步录像</button>
+    </div>
+
+    <button id="startBtn" class="primary">开始提词 <span>→</span></button>
+    <p class="tip">开始后：轻点屏幕暂停/继续，左右滑动调速</p>
+  </main>
+
+  <main id="prompter" class="screen prompter-screen hidden">
+    <video id="camera" playsinline muted></video>
+    <div class="shade"></div>
+    <div class="focus-line"></div>
+    <div id="scrollArea" class="scroll-area">
+      <div class="spacer"></div>
+      <article id="promptText"></article>
+      <div class="spacer bottom"></div>
+    </div>
+    <div id="countdown" class="countdown hidden">3</div>
+    <div class="prompter-top">
+      <button id="closeBtn" class="circle" aria-label="关闭">×</button>
+      <div id="recordingBadge" class="recording hidden"><i></i><span id="recordingTime">00:00</span></div>
+      <button id="recordBtn" class="circle record-control" aria-label="开始或停止录像"><i></i></button>
+    </div>
+    <div class="prompter-bottom">
+      <button id="slowerBtn" class="circle" aria-label="减慢">−</button>
+      <button id="playBtn" class="play" aria-label="暂停或继续">Ⅱ</button>
+      <button id="fasterBtn" class="circle" aria-label="加快">＋</button>
+      <span id="liveSpeed">1.0×</span>
+    </div>
+  </main>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="app.js"></script>
+</body>
+</html>
